@@ -1,5 +1,7 @@
 "use client";
 
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { IconButton } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "~/components/Button";
@@ -25,7 +27,9 @@ const useApi = () => {
   };
 };
 
-export const EntryActions: React.FC<EntryActionsProps> = ({ inventoryEntry }) => {
+export const EntryActions: React.FC<EntryActionsProps> = ({
+  inventoryEntry,
+}) => {
   const api = useApi();
   const onDelete = async () => {
     if (window.confirm("Are you sure?")) {
@@ -58,12 +62,20 @@ export const EntryActions: React.FC<EntryActionsProps> = ({ inventoryEntry }) =>
 
   return (
     <div className="flex space-x-2">
-      <Button variantColor="green" size="sm" onClick={onUpdate}>
-        Edit
-      </Button>
-      <Button variantColor="red" size="sm" onClick={onDelete}>
-        Delete
-      </Button>
+      <IconButton
+        icon={<EditIcon />}
+        aria-label="edit"
+        color="green"
+        size="sm"
+        onClick={onUpdate}
+      />
+      <IconButton
+        icon={<DeleteIcon />}
+        aria-label="edit"
+        color="red"
+        size="sm"
+        onClick={onDelete}
+      />
     </div>
   );
 };

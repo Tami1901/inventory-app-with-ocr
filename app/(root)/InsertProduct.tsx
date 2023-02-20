@@ -6,16 +6,20 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import SuperJSON from "superjson";
 
-import { Button } from "~/components/Button";
 import { Input } from "~/components/Input";
 import { useDebounce } from "~/lib/hooks/useDebounce";
 import { CameraThingWrapper } from "./Camera";
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 
-const RenderCode: React.FC<{ searchCode: string; productCode: string }> = (props) => {
+const RenderCode: React.FC<{ searchCode: string; productCode: string }> = (
+  props
+) => {
   const { searchCode, productCode } = props;
   return (
     <span
-      dangerouslySetInnerHTML={{ __html: productCode.replace(searchCode, `<b>${searchCode}</b>`) }}
+      dangerouslySetInnerHTML={{
+        __html: productCode.replace(searchCode, `<b>${searchCode}</b>`),
+      }}
     />
   );
 };
@@ -85,11 +89,40 @@ export const InsertProduct: React.FC<Props> = ({ allProductCodes }) => {
   };
 
   return (
-    <>
-      <div>
-        <button onClick={onTabChange("manual")}>Manual</button>
-        <button onClick={onTabChange("camera")}>Camera</button>
-      </div>
+    <Box>
+      <Heading
+        size="md"
+        textAlign="center"
+        mt="2"
+        mb="6"
+        fontFamily="sans-serif"
+      >
+        Select product
+      </Heading>
+      <Box w="100%" display="flex" mb="4">
+        <Box
+          as="button"
+          w="100%"
+          cursor="pointer"
+          borderRadius="0"
+          backgroundColor="unset"
+          borderBottom={tab === "manual" ? "2px solid orange" : undefined}
+          onClick={onTabChange("manual")}
+        >
+          Manual
+        </Box>
+        <Box
+          as="button"
+          w="100%"
+          cursor="pointer"
+          borderRadius="0"
+          backgroundColor="unset"
+          borderBottom={tab === "camera" ? "2px solid orange" : undefined}
+          onClick={onTabChange("camera")}
+        >
+          Camera
+        </Box>
+      </Box>
 
       {tab === "manual" && (
         <>
@@ -104,14 +137,15 @@ export const InsertProduct: React.FC<Props> = ({ allProductCodes }) => {
           </div>
 
           {productsQuery.isLoading && <p>Loading...</p>}
-          {productsQuery.isError && <p>Error :(</p>}
+          {productsQuery.isError && <p>Error </p>}
           {productsQuery.data && (
             <>
               <ul>
                 {productsQuery.data.products.map((product) => (
                   <li key={product.id}>
-                    [<RenderCode productCode={product.code} searchCode={code} />] {product.name} (
-                    {product.currentCount} / {product.quantity})
+                    [<RenderCode productCode={product.code} searchCode={code} />
+                    ] {product.name} ({product.currentCount} /{" "}
+                    {product.quantity})
                     <Button
                       size="sm"
                       onClick={() =>
@@ -129,14 +163,19 @@ export const InsertProduct: React.FC<Props> = ({ allProductCodes }) => {
                 {productsQuery.data.hasMore && <li>...</li>}
               </ul>
 
-              {code && productsQuery.data.products.length === 0 && <p>No products found</p>}
+              {code && productsQuery.data.products.length === 0 && (
+                <p>No products found</p>
+              )}
             </>
           )}
         </>
       )}
 
       {tab === "camera" && (
-        <CameraThingWrapper allProductCodes={allProductCodes} select={setSelectedProduct} />
+        <CameraThingWrapper
+          allProductCodes={allProductCodes}
+          select={setSelectedProduct}
+        />
       )}
 
       {selectedProduct && (
@@ -148,6 +187,6 @@ export const InsertProduct: React.FC<Props> = ({ allProductCodes }) => {
           </form>
         </>
       )}
-    </>
+    </Box>
   );
 };

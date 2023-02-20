@@ -7,8 +7,11 @@ import { CameraThingWrapper } from "./Camera";
 import { EntryActions } from "./EntryActions";
 import { InsertProduct } from "./InsertProduct";
 import { Header } from "~/components/Header";
+import { LastInputs } from "~/components/LastInputs";
 
-export type InventoryEntryWithProduct = Awaited<ReturnType<typeof getLastEntries>>[number];
+export type InventoryEntryWithProduct = Awaited<
+  ReturnType<typeof getLastEntries>
+>[number];
 const getLastEntries = async (session: Session) => {
   const inventoryEntries = await db.inventoryEntry.findMany({
     where: { userId: session.user?.id, deletedAt: null },
@@ -64,21 +67,9 @@ export default async function App() {
     <>
       <Header />
       <div style={{ padding: "4px 80px" }}>
-        <h2 className="text-lg font-bold">Last 5 entries</h2>
-        <ul>
-          {lastEntries.map((entry) => (
-            <li key={entry.id}>
-              <div className="flex space-x-2 mb-1">
-                {entry.product ? `[${entry.product.code}] ${entry.product.name}` : entry.backupCode}{" "}
-                - {entry.quantity}
-                <EntryActions inventoryEntry={entry} />
-              </div>
-            </li>
-          ))}
-        </ul>
-
-        <h2 className="text-lg font-bold">Select product</h2>
         <InsertProduct allProductCodes={allProductCodes} />
+
+        <LastInputs lastEntries={lastEntries} />
       </div>
     </>
   );

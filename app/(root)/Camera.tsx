@@ -12,7 +12,9 @@ import { Button } from "~/components/Button";
 
 export const CameraThingWrapper: React.FC<{
   allProductCodes: { id: number; name: string; code: string }[];
-  select: React.Dispatch<React.SetStateAction<{ id: number; name: string; code: string } | null>>;
+  select: React.Dispatch<
+    React.SetStateAction<{ id: number; name: string; code: string } | null>
+  >;
 }> = ({ allProductCodes, select }) => {
   const { data: worker } = useQuery(
     ["worker"],
@@ -56,8 +58,6 @@ export const CameraThingWrapper: React.FC<{
         document.querySelector("#canvasOutput") as HTMLCanvasElement
       );
 
-      console.log(resp.data.words.map((w) => w.text));
-
       return resp?.data?.words
         .map((v) => ({ ...v, lower: v.text.toLocaleLowerCase("hr") }))
         .filter((v) => v.lower.match(/^[\w-/\.\,\+\č\ć\đ\š\ž]*$/))
@@ -80,7 +80,9 @@ export const CameraThingWrapper: React.FC<{
   return (
     <div>
       <Button size="sm" onClick={() => setShowProcessedCanvas((v) => !v)}>
-        {showProcessedCanvas ? "Hide processed canvas" : "Show processed canvas"}
+        {showProcessedCanvas
+          ? "Hide processed canvas"
+          : "Show processed canvas"}
       </Button>
 
       {showProcessedCanvas &&

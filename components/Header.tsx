@@ -1,5 +1,7 @@
 "use client";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack } from "@chakra-ui/react";
+import { MdOutlineInventory } from "react-icons/md";
+
 import Link from "next/link";
 
 export const Header = () => {
@@ -11,15 +13,17 @@ export const Header = () => {
       justifyContent="space-between"
       borderBottom="1px solid #e2e8f0"
       alignItems="center"
-      >
-        <Heading  fontFamily="sans-serif">Inventura app</Heading>
-        <Box>
-          <Link href="/admin/upload" style={{ marginRight: "20px" }}>
-            Upload
-          </Link>
+    >
+      <Heading fontFamily="sans-serif" color="orange.900">
+        Tucic doo
+      </Heading>
+      <Box>
+        <Link href="/admin/upload" style={{ marginRight: "20px" }}>
+          Upload
+        </Link>
 
-          <Link href="/api/auth/signout">SignOut</Link>
-        </Box>
+        <Link href="/api/auth/signout">SignOut</Link>
       </Box>
-  )
-}
+    </Box>
+  );
+};
