@@ -6,6 +6,7 @@ import { requireLogin } from "~/lib/auth/helpers";
 import { CameraThingWrapper } from "./Camera";
 import { EntryActions } from "./EntryActions";
 import { InsertProduct } from "./InsertProduct";
+import { Header } from "~/components/Header";
 
 export type InventoryEntryWithProduct = Awaited<ReturnType<typeof getLastEntries>>[number];
 const getLastEntries = async (session: Session) => {
@@ -61,24 +62,7 @@ export default async function App() {
 
   return (
     <>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          padding: "4px 80px",
-          justifyContent: "space-between",
-          backgroundColor: "#dfb5696e",
-        }}
-      >
-        <h1 style={{ fontSize: "40px", fontFamily: "sans-serif" }}>Inventura app</h1>
-        <div style={{ paddingTop: "20px" }}>
-          <Link href="/admin/upload" style={{ marginRight: "20px" }}>
-            Upload
-          </Link>
-
-          <Link href="/api/auth/signout">SignOut</Link>
-        </div>
-      </div>
+      <Header />
       <div style={{ padding: "4px 80px" }}>
         <h2 className="text-lg font-bold">Last 5 entries</h2>
         <ul>
