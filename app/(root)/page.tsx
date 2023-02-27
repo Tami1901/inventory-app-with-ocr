@@ -64,13 +64,13 @@ export default async function App() {
   });
 
   return (
-    <>
+    <div style={{ backgroundColor: "#121212", height: "100vh" }}>
       <Header />
       <div style={{ padding: "4px 80px" }}>
         <InsertProduct allProductCodes={allProductCodes} />
 
         <LastInputs lastEntries={lastEntries} />
       </div>
-    </>
+    </div>
   );
 }

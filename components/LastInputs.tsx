@@ -47,6 +47,7 @@ export const LastInputs = ({ lastEntries }: LastInputsType) => {
         mt="2"
         mb="6"
         fontFamily="sans-serif"
+        color="white"
       >
         Last 5 entries
       </Heading>

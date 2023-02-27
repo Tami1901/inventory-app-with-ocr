@@ -11,18 +11,22 @@ export const Header = () => {
       display="flex"
       p="10px 80px"
       justifyContent="space-between"
-      borderBottom="1px solid #e2e8f0"
       alignItems="center"
     >
-      <Heading fontFamily="sans-serif" color="orange.900">
-        Tucic doo
+      <Heading fontFamily="sans-serif" color="darkgrey">
+        Inventory app
       </Heading>
       <Box>
-        <Link href="/admin/upload" style={{ marginRight: "20px" }}>
+        <Link
+          href="/admin/upload"
+          style={{ marginRight: "20px", color: "darkgrey" }}
+        >
           Upload
         </Link>
 
-        <Link href="/api/auth/signout">SignOut</Link>
+        <Link href="/api/auth/signout" style={{ color: "darkgrey" }}>
+          SignOut
+        </Link>
       </Box>
     </Box>
   );

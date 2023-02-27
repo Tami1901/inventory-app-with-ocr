@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Product } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import SuperJSON from "superjson";
 
-import { Input } from "~/components/Input";
 import { useDebounce } from "~/lib/hooks/useDebounce";
 import { CameraThingWrapper } from "./Camera";
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Input, OrderedList, Text } from "@chakra-ui/react";
+import { TfiWrite } from "react-icons/tfi";
+import { BsFillCameraFill } from "react-icons/bs";
 
 const RenderCode: React.FC<{ searchCode: string; productCode: string }> = (
   props
@@ -90,57 +91,50 @@ export const InsertProduct: React.FC<Props> = ({ allProductCodes }) => {
 
   return (
     <Box>
-      <Heading
-        size="md"
-        textAlign="center"
-        mt="2"
-        mb="6"
-        fontFamily="sans-serif"
-      >
-        Select product
-      </Heading>
-      <Box w="100%" display="flex" mb="4">
-        <Box
-          as="button"
+      <Box w="100%" display="flex" my="8">
+        <Button
           w="100%"
           cursor="pointer"
-          borderRadius="0"
-          backgroundColor="unset"
-          borderBottom={tab === "manual" ? "2px solid orange" : undefined}
-          onClick={onTabChange("manual")}
-        >
-          Manual
-        </Box>
-        <Box
-          as="button"
-          w="100%"
-          cursor="pointer"
-          borderRadius="0"
-          backgroundColor="unset"
-          borderBottom={tab === "camera" ? "2px solid orange" : undefined}
+          borderRadius="5px"
+          colorScheme="green"
+          p="80px 10px"
+          mr="10"
           onClick={onTabChange("camera")}
         >
-          Camera
-        </Box>
+          <BsFillCameraFill size="40px" />
+        </Button>
+        <Button
+          w="100%"
+          cursor="pointer"
+          borderRadius="5px"
+          p="80px 10px"
+          colorScheme="blue"
+          onClick={onTabChange("manual")}
+        >
+          <TfiWrite size="40px" />
+        </Button>
       </Box>
 
       {tab === "manual" && (
-        <>
-          <div className="flex">
+        <Box backgroundColor="whiteAlpha.200" p="10" borderRadius="5px">
+          <Box w="100%" display="flex">
             <Input
               type="text"
               placeholder="Start typing..."
               value={code}
               onChange={(e) => setCode(e.target.value)}
+              color="white"
             />
-            {productsQuery.isFetching && <p>Searching...</p>}
-          </div>
+            {productsQuery.isFetching && (
+              <Text color="white">Searching...</Text>
+            )}
+          </Box>
 
           {productsQuery.isLoading && <p>Loading...</p>}
           {productsQuery.isError && <p>Error </p>}
           {productsQuery.data && (
             <>
-              <ul>
+              <OrderedList>
                 {productsQuery.data.products.map((product) => (
                   <li key={product.id}>
                     [<RenderCode productCode={product.code} searchCode={code} />
@@ -161,14 +155,14 @@ export const InsertProduct: React.FC<Props> = ({ allProductCodes }) => {
                   </li>
                 ))}
                 {productsQuery.data.hasMore && <li>...</li>}
-              </ul>
+              </OrderedList>
 
               {code && productsQuery.data.products.length === 0 && (
                 <p>No products found</p>
               )}
             </>
           )}
-        </>
+        </Box>
       )}
 
       {tab === "camera" && (
