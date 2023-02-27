@@ -1,13 +1,9 @@
 import { Session } from "next-auth";
-import Link from "next/link";
 
 import db from "~/prisma";
 import { requireLogin } from "~/lib/auth/helpers";
-import { CameraThingWrapper } from "./Camera";
-import { EntryActions } from "./EntryActions";
-import { InsertProduct } from "./InsertProduct";
 import { Header } from "~/components/Header";
-import { LastInputs } from "~/components/LastInputs";
+import { EntriesLayout } from "~/components/EntriesLayout";
 
 export type InventoryEntryWithProduct = Awaited<
   ReturnType<typeof getLastEntries>
@@ -64,12 +60,19 @@ export default async function App() {
   });
 
   return (
-    <div style={{ backgroundColor: "#121212", height: "100vh" }}>
+    <div
+      style={{
+        position: "relative",
+        backgroundColor: "#121212",
+        height: "100vh",
+      }}
+    >
       <Header />
-      <div style={{ padding: "4px 80px" }}>
-        <InsertProduct allProductCodes={allProductCodes} />
-
-        <LastInputs lastEntries={lastEntries} />
+      <div style={{ padding: "0 80px" }}>
+        <EntriesLayout
+          allProductCodes={allProductCodes}
+          lastEntries={lastEntries}
+        />
       </div>
     </div>
   );

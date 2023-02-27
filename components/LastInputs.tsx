@@ -1,15 +1,5 @@
 "use client";
-import {
-  Box,
-  Divider,
-  Heading,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { EntryActions } from "~/app/(root)/EntryActions";
 
 type LastInputsType = {
@@ -40,17 +30,15 @@ const setBackgroundColor = (product: any) => {
 
 export const LastInputs = ({ lastEntries }: LastInputsType) => {
   return (
-    <Box mt="10">
-      <Heading
+    <Box>
+      {/* <Heading
         size="md"
         textAlign="center"
-        mt="2"
-        mb="6"
         fontFamily="sans-serif"
         color="white"
       >
         Last 5 entries
-      </Heading>
+      </Heading> */}
       <Table>
         <Thead>
           <Tr>

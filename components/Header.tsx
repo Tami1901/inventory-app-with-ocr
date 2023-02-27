@@ -1,6 +1,5 @@
 "use client";
-import { Box, Flex, Heading, HStack } from "@chakra-ui/react";
-import { MdOutlineInventory } from "react-icons/md";
+import { Box, Heading } from "@chakra-ui/react";
 
 import Link from "next/link";
 
@@ -9,7 +8,7 @@ export const Header = () => {
     <Box
       w="100%"
       display="flex"
-      p="10px 80px"
+      p="16px 100px"
       justifyContent="space-between"
       alignItems="center"
     >

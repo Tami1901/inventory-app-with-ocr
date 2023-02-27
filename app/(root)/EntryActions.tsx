@@ -1,10 +1,10 @@
 "use client";
 
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { IconButton } from "@chakra-ui/react";
+import { HStack, IconButton } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import React from "react";
 
-import { Button } from "~/components/Button";
 import { InventoryEntryWithProduct } from "./page";
 
 type EntryActionsProps = { inventoryEntry: InventoryEntryWithProduct };
@@ -61,13 +61,14 @@ export const EntryActions: React.FC<EntryActionsProps> = ({
   };
 
   return (
-    <div className="flex space-x-2">
+    <HStack>
       <IconButton
         icon={<EditIcon />}
         aria-label="edit"
         color="green"
         size="sm"
         onClick={onUpdate}
+        backgroundColor="unset"
       />
       <IconButton
         icon={<DeleteIcon />}
@@ -75,7 +76,8 @@ export const EntryActions: React.FC<EntryActionsProps> = ({
         color="red"
         size="sm"
         onClick={onDelete}
+        backgroundColor="unset"
       />
-    </div>
+    </HStack>
   );
 };
